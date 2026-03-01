@@ -20,3 +20,6 @@ jobs:
 
       - name: Run script
         run: python auto_pipeline.py
+        env:
+          NOTE_ACCESS_TOKEN: ${{ secrets.NOTE_ACCESS_TOKEN }}
+          MANUS_API_KEY: ${{ secrets.MANUS_API_KEY }}
