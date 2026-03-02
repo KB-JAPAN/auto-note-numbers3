@@ -1,6 +1,8 @@
 name: auto note post
 
 on:
+  schedule:
+    - cron: '30 11 * * 1-5'  # 日本時間20:30（UTC11:30）
   workflow_dispatch:
 
 jobs:
@@ -17,14 +19,6 @@ jobs:
 
       - name: Install requirements
         run: pip install -r requirements.txt
-
-      - name: Debug secrets
-        run: |
-          echo "NOTE_ACCESS_TOKEN=$NOTE_ACCESS_TOKEN"
-          echo "MANUS_API_KEY=$MANUS_API_KEY"
-        env:
-          NOTE_ACCESS_TOKEN: ${{ secrets.NOTE_ACCESS_TOKEN }}
-          MANUS_API_KEY: ${{ secrets.MANUS_API_KEY }}
 
       - name: Run script
         run: python auto_pipeline.py
