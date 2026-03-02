@@ -24,7 +24,7 @@ jobs:
         run: playwright install --with-deps
 
       - name: Run script
-        run: python auto_pipeline.py
-        env:
-          NOTE_EMAIL: ${{ secrets.NOTE_EMAIL }}
-          NOTE_PASSWORD: ${{ secrets.NOTE_PASSWORD }}
+  run: python auto_pipeline.py
+  env:
+    NOTE_EMAIL: ${{ secrets.NOTE_EMAIL }}
+    NOTE_PASSWORD: ${{ secrets.NOTE_PASSWORD }}
