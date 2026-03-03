@@ -10,22 +10,22 @@ def create_draft(title, body):
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
 
-        print("noteへアクセス")
         page.goto("https://note.com/login")
 
-        # ↓ 追加：ログイン方法選択
-        print("ログイン方法選択")
-        page.wait_for_selector("text=メールアドレスでログイン", timeout=10000)
-        page.click("text=メールアドレスでログイン")
+print("ログイン方法選択待機")
+page.wait_for_selector('button:has-text("メールアドレスでログイン")', timeout=15000)
+page.click('button:has-text("メールアドレスでログイン")')
 
-        # ↓ 入力フォーム待機
-        print("メール入力待機")
-        page.wait_for_selector('input[type="email"]', timeout=10000)
+print("メール欄待機")
+page.wait_for_selector('input[type="email"]', timeout=15000)
 
-        print("ログイン処理")
-        page.fill('input[type="email"]', EMAIL)
-        page.fill('input[type="password"]', PASSWORD)
-        page.click('button[type="submit"]')
+print("ログイン処理")
+page.fill('input[type="email"]', EMAIL)
+page.fill('input[type="password"]', PASSWORD)
+
+page.click('button[type="submit"]')
+
+page.wait_for_load_state("networkidle")
 
         page.wait_for_load_state("networkidle")
 
