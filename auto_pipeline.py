@@ -5,6 +5,7 @@ from datetime import datetime
 EMAIL = os.getenv("NOTE_EMAIL")
 PASSWORD = os.getenv("NOTE_PASSWORD")
 
+
 def create_draft(title, body):
     with sync_playwright() as p:
         browser = p.chromium.launch(
@@ -23,28 +24,14 @@ def create_draft(title, body):
 
         page = context.new_page()
 
+        # ===== ログイン =====
         print("noteへアクセス")
         page.goto("https://note.com/login")
+        page.wait_for_load_state("networkidle")
         page.wait_for_timeout(5000)
 
-        print("noteへアクセス")
-page.goto("https://note.com/login")
-page.wait_for_load_state("networkidle")
-page.wait_for_timeout(5000)
-
-print("メール欄待機")
-page.wait_for_selector('input[type="email"]', timeout=30000)
-
-print("ログイン処理")
-page.fill('input[type="email"]', EMAIL)
-page.fill('input[type="password"]', PASSWORD)
-page.click('button[type="submit"]')
-
-page.wait_for_load_state("networkidle")
-page.wait_for_timeout(5000)
-
         print("メール欄待機")
-        page.wait_for_selector('input[type="email"]', timeout=20000)
+        page.wait_for_selector('input[type="email"]', timeout=30000)
 
         print("ログイン処理")
         page.fill('input[type="email"]', EMAIL)
@@ -54,13 +41,14 @@ page.wait_for_timeout(5000)
         page.wait_for_load_state("networkidle")
         page.wait_for_timeout(5000)
 
+        # ===== 記事作成 =====
         print("記事作成画面へ")
         page.goto("https://note.com/notes/new")
         page.wait_for_load_state("networkidle")
         page.wait_for_timeout(5000)
 
         print("タイトル入力")
-        page.fill('textarea', title)
+        page.fill("textarea", title)
 
         print("本文入力")
         page.fill('[contenteditable="true"]', body)
