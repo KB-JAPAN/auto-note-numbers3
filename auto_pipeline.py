@@ -7,7 +7,7 @@ PASSWORD = os.getenv("NOTE_PASSWORD")
 
 def create_draft(title, body):
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=False, args=["--no-sandbox"])
         page = browser.new_page()
 
         print("noteへアクセス")
