@@ -27,9 +27,21 @@ def create_draft(title, body):
         page.goto("https://note.com/login")
         page.wait_for_timeout(5000)
 
-        print("ログイン方法選択待機")
-        page.wait_for_selector('button:has-text("メールアドレスでログイン")', timeout=20000)
-        page.click('button:has-text("メールアドレスでログイン")')
+        print("noteへアクセス")
+page.goto("https://note.com/login")
+page.wait_for_load_state("networkidle")
+page.wait_for_timeout(5000)
+
+print("メール欄待機")
+page.wait_for_selector('input[type="email"]', timeout=30000)
+
+print("ログイン処理")
+page.fill('input[type="email"]', EMAIL)
+page.fill('input[type="password"]', PASSWORD)
+page.click('button[type="submit"]')
+
+page.wait_for_load_state("networkidle")
+page.wait_for_timeout(5000)
 
         print("メール欄待機")
         page.wait_for_selector('input[type="email"]', timeout=20000)
