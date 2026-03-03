@@ -27,8 +27,6 @@ page.click('button[type="submit"]')
 
 page.wait_for_load_state("networkidle")
 
-        page.wait_for_load_state("networkidle")
-
         print("記事作成画面へ")
         page.goto("https://note.com/notes/new")
         page.wait_for_load_state("networkidle")
